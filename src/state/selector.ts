@@ -1,3 +1,3 @@
 import { TodoState } from "./slice";
 
-export const selectState = (state: TodoState) => state
+export const selectState = (state: TodoState) => state;

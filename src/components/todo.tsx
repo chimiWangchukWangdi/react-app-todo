@@ -1,21 +1,27 @@
-import { Heading, Box, Text, Flex, Button } from "@chakra-ui/react";
-const Todo = () => {
+import Modal from "./modal";
+import "../style/todo.css";
+
+interface TaskItemProps {
+  onClose: () => void;
+  open: boolean;
+  title: string;
+  description: string;
+}
+
+const TaskItem: React.FC<TaskItemProps> = ({
+  onClose,
+  open,
+  title,
+  description,
+}) => {
   return (
-    <Flex justifyContent={'space-between'}>
-      <Box>
-        <Heading size="xs" textTransform="uppercase">
-          Summary
-        </Heading>
-        <Text pt="2" fontSize="sm">
-          View a summary of all your clients over the last month.
-        </Text>
-      </Box>
-      <Box>
-        <Button margin={3} colorScheme='green'> Edit </Button>
-        <Button m={3} colorScheme='red'> Delete </Button>
-      </Box>
-    </Flex>
+    <Modal modalLable="Task Item" onClose={onClose} open={open}>
+      <div className="taskItem">
+        <h2>{title}</h2>
+        <p>{description}</p>
+      </div>
+    </Modal>
   );
 };
 
-export default Todo;
+export default TaskItem;
