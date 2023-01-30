@@ -24,27 +24,25 @@ import {
 } from "@chakra-ui/react";
 import {
   FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
   FiMenu,
   FiBell,
   FiChevronDown,
+  FiList
 } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  path: string
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "List", icon: FiList, path:'/' },
+  { name: "Dashboard", icon: FiHome, path: "/dashboard" },
+  { name: "Profile", icon: CgProfile, path: "/profile" },
 ];
 
 export default function Header({ children }: { children: ReactNode }) {
@@ -100,7 +98,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} path={link.path}>
           {link.name}
         </NavItem>
       ))}
@@ -111,11 +109,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  path: string
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
   return (
     <Link
-      href="#"
+      as={RouterLink}
+      to={path}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
@@ -223,8 +223,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
               <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
               <MenuDivider />
               <MenuItem>Sign out</MenuItem>
             </MenuList>

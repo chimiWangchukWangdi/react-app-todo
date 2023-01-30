@@ -21,12 +21,12 @@
   font-size: 18px;
   padding: 10px 15px;
   margin: 0 auto;
-  background-color: hsl(210, 12%, 15%);
+  background-color: #42A5F5;
   cursor: pointer;
 }
 
 .taskManager__container > button:hover {
-  background-color: hsl(210, 12%, 25%);
+  background-color: #42a4f5e0;
 }
 
 .taskManager__container > button:active {

@@ -25,7 +25,7 @@
   height: 40px;
   border: none;
   color: white;
-  background-color: hsl(210, 12%, 15%);
+  background-color: #42A5F5;
 }
 
 .addTask textarea {
@@ -40,11 +40,11 @@
 }
 
 .addTask button:hover {
-  background-color: hsl(210, 12%, 25%);
+  background-color: #42a4f5e0;
 }
 
 .addTask button:active {
-  background-color: hsl(210, 12%, 15%);
+  background-color: #42a4f5e0;
 }
 
 .editTask {
@@ -74,7 +74,7 @@
   height: 40px;
   border: none;
   color: white;
-  background-color: hsl(210, 12%, 15%);
+  background-color: #42A5F5;
 }
 
 .editTask textarea {
@@ -90,9 +90,9 @@
 }
 
 .editTask button:hover {
-  background-color: hsl(210, 12%, 25%);
+  background-color: #42a4f5e0;
 }
 
 .editTask button:active {
-  background-color: hsl(210, 12%, 15%);
+  background-color: #42a4f5e0;
 }

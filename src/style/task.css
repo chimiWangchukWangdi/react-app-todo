@@ -73,7 +73,7 @@
 }
 
 .task__buttons > button {
-  background-color: hsl(210, 70%, 60%);
+  background-color: #42A5F5;
   padding: 5px 10px;
   font-size: 16px;
   border: none;
@@ -82,7 +82,7 @@
 }
 
 .task__buttons > button:hover {
-  background-color: hsl(210, 70%, 50%);
+  background-color: #42a4f5e0;
 }
 
 .task__buttons > button:active {

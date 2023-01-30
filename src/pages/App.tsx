@@ -1,16 +1,22 @@
 import React from "react";
+import { Route, Link, BrowserRouter, Routes } from "react-router-dom";
 import Header from "../components/header";
-import Home from "./home";
+import Profile from "./profile";
+import Dashboard from "./dashboard";
 import TaskManager from "./task-manager";
 
 function App() {
   return (
     <div className="App">
-      <Header>
-        <div>
-          <TaskManager />
-        </div>
+      <BrowserRouter>
+      <Header >
+        <Routes>
+            <Route path="/" element={<TaskManager/>} />
+            <Route path="/dashboard" element={<Dashboard/>} />
+            <Route path="/profile" element={<Profile/>} />
+        </Routes>
       </Header>
+      </BrowserRouter>
     </div>
   );
 }
