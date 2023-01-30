@@ -7,8 +7,8 @@ export interface Todo {
   id: string;
   title: string;
   description: string;
-  created_at: string;
-  status: string;
+  created_at: Date;
+  status: boolean;
 }
 
 export interface APIResponse<T> {

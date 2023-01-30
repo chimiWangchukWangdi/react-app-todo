@@ -2,6 +2,10 @@ import Modal from "./modal";
 import "../style/task-form.css";
 import { Form, Field } from "react-final-form";
 import { TaskFormProps } from "../models/todo";
+import { useDispatch, useSelector } from "react-redux";
+import * as selectors from "../state/selector";
+import { useAppDispatch } from "../state/store";
+import { editTodo, postTodo } from "../state/slice";
 
 const TaskForm: React.FC<TaskFormProps> = ({
   open,
@@ -10,49 +14,24 @@ const TaskForm: React.FC<TaskFormProps> = ({
   toEditTitle,
   toEditDescription,
 }) => {
+  const dispatch = useAppDispatch();
+
   /* function to handle submitting the form */
   const handleSubmit = async (values: {
+    id: string;
     title: string;
     description: string;
-    completed?: boolean;
-    created?: Date;
+    completed: boolean;
+    created_at: Date;
+    status: boolean;
   }) => {
     try {
       /* if initialValues are present, update the task, otherwise add new task */
       if (id) {
-        const response = await fetch(
-          `https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${id}.json`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              title: values.title,
-              description: values.description,
-              completed: values.completed,
-              created: values.created,
-            }),
-          }
-        );
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
+        values.id = id;
+        dispatch(editTodo(values));
       } else {
-        const response = await fetch(
-          "https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              title: values.title,
-              description: values.description,
-              completed: false,
-              created: new Date(),
-            }),
-          }
-        );
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
+        dispatch(postTodo(values));
       }
       onClose();
     } catch (err) {

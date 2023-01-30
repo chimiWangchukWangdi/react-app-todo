@@ -3,29 +3,20 @@ import Task from "../components/task";
 import TaskForm from "../components/task-form";
 import { useState, useEffect } from "react";
 import { TaskProps } from "../models/todo";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../state/store";
+import { fetchTodoList } from "../state/slice";
+import * as selectors from "../state/selector";
 
 function TaskManager() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const dispatch = useAppDispatch();
+  const todos = useSelector(selectors.selectTodos);
 
   /* function to get all tasks from firestore in realtime */
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        "https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json"
-      );
-      const data = await response.json();
-      const newDatas = [];
-      for (const key in data) {
-        const newData = {
-          id: key,
-          ...data[key],
-        };
-        newDatas.push(newData);
-      }
-      setTasks(newDatas);
-    }
-    fetchData();
+    dispatch(fetchTodoList());
   }, []);
 
   return (
@@ -33,11 +24,11 @@ function TaskManager() {
       <div className="taskManager__container">
         <button onClick={() => setOpenAddModal(true)}>Add task +</button>
         <div className="taskManager__tasks">
-          {tasks.map((task) => (
+          {todos.map((task) => (
             <Task
               id={task.id}
               key={task.id}
-              completed={task.completed}
+              completed={task.status}
               title={task.title}
               description={task.description}
             />

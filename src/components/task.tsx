@@ -3,10 +3,15 @@ import { useState } from "react";
 import TaskItem from "./todo";
 import TaskForm from "./task-form";
 import { TaskProps } from "../models/todo";
+import { useDispatch, useSelector } from "react-redux";
+import * as selectors from "../state/selector";
+import { useAppDispatch } from "../state/store";
+import { deleteTodo } from "../state/slice";
 
 const Task: React.FC<TaskProps> = ({ id, title, description, completed }) => {
   const [checked, setChecked] = useState(completed);
   const [open, setOpen] = useState({ edit: false, view: false });
+  const dispatch = useAppDispatch();
 
   const handleClose = () => {
     setOpen({ edit: false, view: false });
@@ -29,16 +34,7 @@ const Task: React.FC<TaskProps> = ({ id, title, description, completed }) => {
 
   /* function to delete a document from firebase */
   const handleDelete = async () => {
-    try {
-      await fetch(
-        `https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${id}.json`,
-        {
-          method: "DELETE",
-        }
-      );
-    } catch (err) {
-      alert(err);
-    }
+    await dispatch(deleteTodo(id));
   };
 
   return (
@@ -55,7 +51,7 @@ const Task: React.FC<TaskProps> = ({ id, title, description, completed }) => {
         <label
           htmlFor={`checkbox-${id}`}
           className="checkbox-custom-label"
-          onClick={() => setChecked(!checked)}
+          onClick={() => setChecked(checked)}
         ></label>
       </div>
       <div className="task__body">
