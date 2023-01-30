@@ -22,13 +22,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-  FiList
-} from "react-icons/fi";
+import { FiHome, FiMenu, FiBell, FiChevronDown, FiList } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
@@ -37,10 +31,10 @@ import { Link as RouterLink } from "react-router-dom";
 interface LinkItemProps {
   name: string;
   icon: IconType;
-  path: string
+  path: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "List", icon: FiList, path:'/' },
+  { name: "List", icon: FiList, path: "/" },
   { name: "Dashboard", icon: FiHome, path: "/dashboard" },
   { name: "Profile", icon: CgProfile, path: "/profile" },
 ];
@@ -109,7 +103,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
-  path: string
+  path: string;
 }
 const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
   return (

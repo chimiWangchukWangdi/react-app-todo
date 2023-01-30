@@ -1,4 +1,4 @@
-import { fetchTodoList, TodoState } from "../state/slice";
+import { TodoState } from "../state/slice";
 
 export interface Store {
   todo: TodoState;

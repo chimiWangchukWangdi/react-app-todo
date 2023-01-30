@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link, BrowserRouter, Routes } from "react-router-dom";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Header from "../components/header";
 import Profile from "./profile";
 import Dashboard from "./dashboard";
