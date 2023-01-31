@@ -40,8 +40,9 @@ export const postTodo = createAsyncThunk(
          }
       )
       .then((res) => {
+        const result = data
         debugger
-        return thunkAPI.fulfillWithValue(res.data);
+        return thunkAPI.fulfillWithValue({...res, result});
       })
       .catch((error) => {
         return thunkAPI.rejectWithValue(error);
@@ -121,8 +122,8 @@ export const todoSlice = createSlice<
         state.errors.push(...error);
       })
       .addCase(postTodo.fulfilled, (state, action) => {
-        debugger
-        todoAdapter.addOne(state, action.payload);
+        const result =  {...action.payload.result , id: action.payload.data.name, created_at: new Date(),status: false };
+        todoAdapter.addOne(state, result);
         state.loading = "loaded";
       })
       .addCase(editTodo.fulfilled, (state, action) => {
