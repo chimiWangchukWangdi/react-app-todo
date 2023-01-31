@@ -8,8 +8,8 @@ import * as selectors from "../state/selector";
 import { useAppDispatch } from "../state/store";
 import { deleteTodo } from "../state/slice";
 
-const Task: React.FC<TaskProps> = ({ id, title, description, completed }) => {
-  const [checked, setChecked] = useState(completed);
+const Task: React.FC<TaskProps> = ({ id, title, description, created_at, status }) => {
+  const [checked, setChecked] = useState(false);
   const [open, setOpen] = useState({ edit: false, view: false });
   const dispatch = useAppDispatch();
 
@@ -24,9 +24,9 @@ const Task: React.FC<TaskProps> = ({ id, title, description, completed }) => {
         `https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${id}.json`,
         {
           method: "PATCH",
-          body: JSON.stringify({ completed: checked }),
+          body: JSON.stringify({ status: checked }),
         }
-      );
+      )
     } catch (err) {
       alert(err);
     }
@@ -51,7 +51,7 @@ const Task: React.FC<TaskProps> = ({ id, title, description, completed }) => {
         <label
           htmlFor={`checkbox-${id}`}
           className="checkbox-custom-label"
-          onClick={() => setChecked(checked)}
+          onClick={() => setChecked(!checked)}
         ></label>
       </div>
       <div className="task__body">

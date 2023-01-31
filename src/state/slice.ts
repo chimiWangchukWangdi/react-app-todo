@@ -31,10 +31,15 @@ export const postTodo = createAsyncThunk(
     return await axios
       .post(
         "https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
-        data
+        { 
+          title: data.title,
+          description: data.description,
+          created_at: new Date(),
+          status: false
+         }
       )
       .then((res) => {
-        return thunkAPI.fulfillWithValue(data);
+        return thunkAPI.fulfillWithValue(res);
       })
       .catch((error) => {
         return thunkAPI.rejectWithValue(error);
@@ -119,7 +124,7 @@ export const todoSlice = createSlice<
         state.errors.push(...error);
       })
       .addCase(postTodo.fulfilled, (state, action) => {
-        todoAdapter.addOne(state, action);
+        todoAdapter.addOne(state, action.payload.config.data);
         state.loading = "loaded";
       })
       .addCase(editTodo.fulfilled, (state, action) => {

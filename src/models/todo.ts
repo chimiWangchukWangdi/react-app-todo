@@ -41,7 +41,8 @@ export interface ModalProps {
 
 export interface TaskProps {
   id: string;
-  completed: boolean;
   title: string;
   description: string;
+  created_at: Date;
+  status: boolean;
 }

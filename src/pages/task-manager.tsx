@@ -28,9 +28,10 @@ function TaskManager() {
             <Task
               id={task.id}
               key={task.id}
-              completed={task.status}
+              status={task.status}
               title={task.title}
               description={task.description}
+              created_at={task.created_at}
             />
           ))}
         </div>
