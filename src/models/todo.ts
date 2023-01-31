@@ -1,4 +1,7 @@
-import { TodoState } from "../state/slice";
+import { BoxProps, FlexProps } from "@chakra-ui/react";
+import { EntityState } from "@reduxjs/toolkit";
+import { ReactText } from "react";
+import { IconType } from "react-icons";
 
 export interface Store {
   todo: TodoState;
@@ -45,4 +48,36 @@ export interface TaskProps {
   description: string;
   created_at: Date;
   status: boolean;
+}
+
+export interface LinkItemProps {
+  name: string;
+  icon: IconType;
+  path: string;
+}
+
+export interface SidebarProps extends BoxProps {
+  onClose: () => void;
+}
+
+export interface NavItemProps extends FlexProps {
+  icon: IconType;
+  children: ReactText;
+  path: string;
+}
+
+export interface MobileProps extends FlexProps {
+  onOpen: () => void;
+}
+
+export interface TaskItemProps {
+  onClose: () => void;
+  open: boolean;
+  title: string;
+  description: string;
+}
+
+export interface TodoState extends EntityState<Todo> {
+  loading: "not loaded" | "loading" | "loaded" | "error";
+  errors: string[];
 }

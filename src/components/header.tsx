@@ -14,8 +14,6 @@ import {
   DrawerContent,
   Text,
   useDisclosure,
-  BoxProps,
-  FlexProps,
   Menu,
   MenuButton,
   MenuDivider,
@@ -27,12 +25,8 @@ import { CgProfile } from "react-icons/cg";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { LinkItemProps, MobileProps, NavItemProps, SidebarProps } from "../models/todo";
 
-interface LinkItemProps {
-  name: string;
-  icon: IconType;
-  path: string;
-}
 const LinkItems: Array<LinkItemProps> = [
   { name: "List", icon: FiList, path: "/" },
   { name: "Dashboard", icon: FiHome, path: "/dashboard" },
@@ -69,9 +63,6 @@ export default function Header({ children }: { children: ReactNode }) {
   );
 }
 
-interface SidebarProps extends BoxProps {
-  onClose: () => void;
-}
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
@@ -100,11 +91,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-interface NavItemProps extends FlexProps {
-  icon: IconType;
-  children: ReactText;
-  path: string;
-}
 const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
   return (
     <Link
@@ -142,9 +128,6 @@ const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
   );
 };
 
-interface MobileProps extends FlexProps {
-  onOpen: () => void;
-}
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   return (
     <Flex

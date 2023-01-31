@@ -6,7 +6,7 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Todo } from "../models/todo";
+import { Todo, TodoState } from "../models/todo";
 import * as actions from "./action";
 
 export const fetchTodoList = createAsyncThunk(
@@ -28,6 +28,7 @@ export const fetchTodoList = createAsyncThunk(
 export const postTodo = createAsyncThunk(
   "add Todo",
   async (data: Todo, thunkAPI) => {
+    debugger
     return await axios
       .post(
         "https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
@@ -39,7 +40,8 @@ export const postTodo = createAsyncThunk(
          }
       )
       .then((res) => {
-        return thunkAPI.fulfillWithValue(res);
+        debugger
+        return thunkAPI.fulfillWithValue(res.data);
       })
       .catch((error) => {
         return thunkAPI.rejectWithValue(error);
@@ -80,11 +82,6 @@ export const deleteTodo = createAsyncThunk(
   }
 );
 
-export interface TodoState extends EntityState<Todo> {
-  loading: "not loaded" | "loading" | "loaded" | "error";
-  errors: string[];
-}
-
 export const todoAdapter = createEntityAdapter<Todo>({
   selectId: (todo: Todo): string => todo.id,
 });
@@ -124,7 +121,8 @@ export const todoSlice = createSlice<
         state.errors.push(...error);
       })
       .addCase(postTodo.fulfilled, (state, action) => {
-        todoAdapter.addOne(state, action.payload.config.data);
+        debugger
+        todoAdapter.addOne(state, action.payload);
         state.loading = "loaded";
       })
       .addCase(editTodo.fulfilled, (state, action) => {

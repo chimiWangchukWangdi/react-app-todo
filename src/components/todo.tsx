@@ -1,12 +1,6 @@
 import Modal from "./modal";
 import "../style/todo.css";
-
-interface TaskItemProps {
-  onClose: () => void;
-  open: boolean;
-  title: string;
-  description: string;
-}
+import { TaskItemProps } from "../models/todo";
 
 const TaskItem: React.FC<TaskItemProps> = ({
   onClose,
