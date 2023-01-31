@@ -28,21 +28,19 @@ export const fetchTodoList = createAsyncThunk(
 export const postTodo = createAsyncThunk(
   "add Todo",
   async (data: Todo, thunkAPI) => {
-    debugger
     return await axios
       .post(
         "https://task-manager-8b118-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
-        { 
+        {
           title: data.title,
           description: data.description,
           created_at: new Date(),
-          status: false
-         }
+          status: false,
+        }
       )
       .then((res) => {
-        const result = data
-        debugger
-        return thunkAPI.fulfillWithValue({...res, result});
+        const result = data;
+        return thunkAPI.fulfillWithValue({ ...res, result });
       })
       .catch((error) => {
         return thunkAPI.rejectWithValue(error);
@@ -122,7 +120,12 @@ export const todoSlice = createSlice<
         state.errors.push(...error);
       })
       .addCase(postTodo.fulfilled, (state, action) => {
-        const result =  {...action.payload.result , id: action.payload.data.name, created_at: new Date(),status: false };
+        const result = {
+          ...action.payload.result,
+          id: action.payload.data.name,
+          created_at: new Date(),
+          status: false,
+        };
         todoAdapter.addOne(state, result);
         state.loading = "loaded";
       })
